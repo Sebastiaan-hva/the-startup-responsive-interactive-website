@@ -1,26 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>270 Degrees projecct</title>
-    <link rel="stylesheet" href="style.css">
+    <title>270 Degrees project</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/20.0.0/tween.umd.js"></script>
 </head>
 <body>
 
+<header>
+
+<nav></nav>
+
+</header>
+
+<script>
+    // CAMERA ANIMATION
+    let animInitted = false;
+    let camTween = null;
+    let animationTime = 300;
+
+    const animateCam = (radius, phi, theta, speed = animationTime) => {
+        const from = {
+            z: $viewer.getCameraPosition().zoom,
+            p: $viewer.getCameraPosition().phi,
+            t: $viewer.getCameraPosition().theta,
+        }
+        const to = {
+            z: Number(radius),
+            p: Number(phi),
+            t: Number(theta)
+        }
+
+        // find quickest route;
+        // reverse direction if we're closer clockwise
+        if (Math.abs(from.t - to.t) > 180) {
+            to.t += 360;
+        }
+
+        // stop any running animation
+        if (camTween) camTween.stop();
+
+        camTween = new TWEEN.Tween(from).to(to, speed)
+            .onStart(() => {
+                // disable user controls so the user can't interfere with the animation
+                $viewer.enableControls(false);
+            })
+            .onUpdate((data) => {
+                $viewer.setCameraPosition({ zoom: data.z, phi: data.p, theta: data.t });
+            })
+            .onComplete(() => {
+                // re-enable user controls
+                $viewer.enableControls();
+            })
+            .easing(TWEEN.Easing.Quadratic.Out)
+            .start();
+        if (animInitted == false) requestAnimationFrame(animate);
+    }
+
+    // WATCH FOR TWEEN UPDATES
+    const animate = (time) => {
+        animInitted = true;
+        requestAnimationFrame(animate);
+        TWEEN.update(time);
+    }
 
 
+    // HOW TO USE
+    animateCam(0.3, 1, 8.2);
+</script>
 
 <section>
+    <h1>Lorem, ipsum dolor.</h1>
     <div class="viewer">
         <div class="js-270viewer" data-270-model="hva-shoe"></div>
     </div>
 </section>
+
 <!-- <div class="myOwnDiv"></div> -->
 
-
-<!-- <script>
-    const $viewer = document.querySelector('.myOwnDiv');
+<!-- 
+<script>
+    const $viewer = document.querySelector('.viewer');
     TSDViewer.create($viewer, {
         model: 'hva-shoe',
         plugins: 'customiser',
@@ -29,6 +91,12 @@
         }
     });
 </script> -->
+
+
+
+
+
+
 
 <script>window.TSDAPIKEY = '645c0808-b5fb-4d15-8986-ffb6a267af2d';</script>
 

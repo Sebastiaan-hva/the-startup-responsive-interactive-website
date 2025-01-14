@@ -1,0 +1,43 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: "DIN 2014";
+    src: url('DIN2014-Regular.ttf');
+}
+
+
+
+body{
+    /* fonts */
+    
+
+    /* font weights */
+
+
+    /* font sizes clamps? */
+
+
+    /* algemene styling */
+
+
+    /* breakpoints? */
+
+    /* kleuren */
+
+    font-family: var(--font-family)
+}
+
+
+
+
+/* groote viewer */
+.viewer{
+    height: 80vh;
+    min-width: 70vw;
+}
+
+h1{}
