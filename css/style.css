@@ -25,19 +25,110 @@ body{
 
 
     /* breakpoints? */
+    /* --breakpoint-1:1000px; wordt niet gesupport */
+    /* kleuren primary*/
+    --color-maastricht:#082036;
+    --color-lapis:#1D72A6;
+    --color-carolina:#52A4D6;
+    --color-white:#ffffff;
+    --color-black:#000000;
 
-    /* kleuren */
+    /* kleuren secondary */
+    --color-lapis-light:#D2E3ED;
+    --color-maya:#72C1F2;
+    --color-azure:#3C8FC2;
+    --color-cerulean:#1A4973;
+    --color-space:#12314D;
 
     font-family: var(--font-family)
 }
 
+header{
+    background-color:var(--color-maastricht) ;
+}
 
+nav {
+    @media (min-width:1000px) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
 
+.menu-button {
+    display: block;
+    font-size: 2.5rem;
+    background: none;
+    border: none;
+    color: var(--color-white);
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+ul.active {
+    display: flex;
+}
+
+ul li {
+    text-align: center;
+    color: var(--color-white);
+    gap 1em;
+}
 
 /* groote viewer */
 .viewer{
     height: 80vh;
     min-width: 70vw;
 }
+
+/* kleine viewers */
+.viewer-small{
+    height: 15vh;
+    width: 1/5fr;
+}
+
+.grid{
+        display:grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+        div :nth-of-type(1){
+            grid-column-start: 1;
+        }
+        div :nth-of-type(2){
+            grid-row-start: 2;
+        }
+}
+
+
+/* variabele erin zetten */
+@media (min-width:1000px) {
+    .menu-button {
+        display:none;
+    }
+    ul{
+        display:flex;
+        flex-direction: row;
+        gap: 1rem;
+    }
+    .grid{
+        display:grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        div :nth-of-type(1){
+            grid-column-start: 1;
+        }
+        div :nth-of-type(2){
+            grid-row-start: 2;
+        }
+    }  
+}
+
+
 
 h1{}
